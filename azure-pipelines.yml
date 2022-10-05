@@ -43,21 +43,5 @@ stages:
             Dockerfile: '**/Dockerfile'
           condition: ne(variables['skipDockerBuild'], 'true')
 
-  - stage: deploy
-    jobs:
-      - job: deploy
-        displayName: K8s
 
-        pool:
-          vmImage: $(vmImageName)
-
-        steps:
-        - task: Kubernetes@1
-          inputs:
-            connectionType: 'Kubernetes Service Connection'
-            kubernetesServiceEndpoint: 'RDO - DevTest - devops-jenkins'
-            namespace: 'default'
-            command: 'login'
-            secretType: 'dockerRegistry'
-            containerRegistryType: 'Azure Container Registry'
 
